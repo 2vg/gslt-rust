@@ -19,7 +19,7 @@ struct GsltListResponse {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct GsltListResponseData {
-    servers: Vec<GsltServerData>,
+    servers: Vec<GsltData>,
 	is_banned:bool,
 	expires:u32,
 	actor:String,
@@ -27,7 +27,7 @@ struct GsltListResponseData {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct GsltServerData  {
+struct GsltData  {
 	steamid:String,
 	appid: i16,
 	login_token: String,
