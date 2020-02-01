@@ -9,7 +9,7 @@ struct GsltCredentialResponse {
 #[derive(Debug, Serialize, Deserialize)]
 struct GsltCredentialData {
     steamid: String,
-	login_token: String
+    login_token: String
 }
 
 #[derive(Debug, Serialize, Deserialize)]
