@@ -50,7 +50,7 @@ fn main() -> Result<()> {
 
 fn get_list(steam_web_api_key: impl Into<String>) -> Result<GsltListResponse> {
     let steam_web_api_key = steam_web_api_key.into();
-    let request_url = format!("https://api.steampowered.com/IGameServersService/GetAccountList/v1/?key={}", steam_web_api_key);
+    let request_url = format!("https://api.steampowered.com/IGameServersService/GetAccountList/v1/?key={}", encode(&steam_web_api_key));
 
     let response = ureq::get(&request_url)
                         .timeout_connect(10_000)
@@ -69,12 +69,12 @@ fn create_gslt(steam_web_api_key: impl Into<String>, app_id: u32, memo: impl Int
     let steam_web_api_key = steam_web_api_key.into();
     let app_id = app_id.to_string();
     let memo = memo.into();
-    let request_url = "https://api.steampowered.com/IGameServersService/CreateAccount/v1";
-    let post_body= format!("key=\"{}\"&appid={}&memo=\"{}\"", encode(&steam_web_api_key), encode(&app_id), encode(&memo));
+    let request_url = format!("https://api.steampowered.com/IGameServersService/CreateAccount/v1/?key={}&appid={}&memo={}", encode(&steam_web_api_key), encode(&app_id), encode(&memo));
 
     let response = ureq::post(&request_url)
                         .timeout_connect(10_000)
-                        .send_string(&post_body);
+                        .set("Content-Length", "0")
+                        .call();
 
     if response.status() != 200 { anyhow!("status code is not 200."); }
 
