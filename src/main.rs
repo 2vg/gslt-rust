@@ -42,7 +42,7 @@ fn main() -> Result<()> {
     let list = get_list("STEAM_WEB_API_KEY")?;
     println!("list: {:?}", list);
 
-    let gslt = create_gslt("STEAM_WEB_API_KEY", "730", "MEMO")?;
+    let gslt = create_gslt("STEAM_WEB_API_KEY", 730, "MEMO")?;
     println!("gslt: {:?}", gslt);
 
     Ok(())
@@ -65,9 +65,9 @@ fn get_list(steam_web_api_key: impl Into<String>) -> Result<GsltListResponse> {
     Ok(list)
 }
 
-fn create_gslt(steam_web_api_key: impl Into<String>, app_id: impl Into<String>, memo: impl Into<String>) -> Result<GsltCredentialResponse> {
+fn create_gslt(steam_web_api_key: impl Into<String>, app_id: u32, memo: impl Into<String>) -> Result<GsltCredentialResponse> {
     let steam_web_api_key = steam_web_api_key.into();
-    let app_id = app_id.into();
+    let app_id = app_id.to_string();
     let memo = memo.into();
     let request_url = "https://api.steampowered.com/IGameServersService/CreateAccount/v1";
     let post_body= format!("key={}&appid={}&memo={}", encode(&steam_web_api_key), encode(&app_id), encode(&memo));
