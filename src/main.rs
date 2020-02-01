@@ -70,7 +70,7 @@ fn create_gslt(steam_web_api_key: impl Into<String>, app_id: u32, memo: impl Int
     let app_id = app_id.to_string();
     let memo = memo.into();
     let request_url = "https://api.steampowered.com/IGameServersService/CreateAccount/v1";
-    let post_body= format!("key={}&appid={}&memo={}", encode(&steam_web_api_key), encode(&app_id), encode(&memo));
+    let post_body= format!("key=\"{}\"&appid={}&memo=\"{}\"", encode(&steam_web_api_key), encode(&app_id), encode(&memo));
 
     let response = ureq::post(&request_url)
                         .timeout_connect(10_000)
